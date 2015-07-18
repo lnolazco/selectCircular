@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Inspiration for Custom Select Elements | Demo 8</title>
+		<link rel="shortcut icon" href="../favicon.ico">
+
+<style media="screen">
+section {
+  padding: 4% 1em 10%;
+  text-align: center;
+}
+
+</style>
+		<link rel="stylesheet" type="text/css" href="../selectCircular.css" />
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body class="color-8">
+		<div class="container">
+			<!-- Top Navigation -->
+			<section>
+				<select class="cs-select cs-skin-circular">
+					<option value="" disabled selected>Select an activity</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</section>
+		</div><!-- /container -->
+		<script src="../selectCircular.js"></script>
+		<script>
+			(function() {
+				[].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+					new SelectFx(el, {
+						stickyPlaceholder: false,
+						onChange: function(val){
+							var img = document.createElement('img');
+							img.src = 'img/'+val+'.png';
+							img.onload = function() {
+								document.querySelector('span.cs-placeholder').style.backgroundImage = 'url(img/smiley/happy_'+val+'.png)';
+							};
+						}
+					});
+				} );
+			})();
+		</script>
+	</body>
+</html>
