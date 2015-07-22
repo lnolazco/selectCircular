@@ -404,4 +404,52 @@ if ( typeof define === 'function' && define.amd ) {
 	 */
 	window.SelectFx = SelectFx;
 
+/*
+LNN: constructor
+*/
+//then call constructor
+//new select circular (images)
+var images = [];
+function SelectCircular(selectImages, circleRadio){
+  images = selectImages;
+  [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+    new SelectFx(el, {
+      stickyPlaceholder: false,
+      onChange: function(val){
+        var img = document.createElement('img');
+        img.src = images[val - 1]; //'img/smiley/happy_'+val+'.png';
+        img.onload = function() {
+          document.querySelector('span.cs-placeholder').style.backgroundImage = 'url(' + images[val - 1] + ')'; //img/smiley/happy_'+val+'.png)';
+        };
+      }
+    });
+  } );
+  var styles = '<style>';
+  var posChild = 1;
+
+  var ratio = 100; //radio to be used to calculate the position in the circle
+  if (circleRadio) ratio = circleRadio;
+  var angule = 270;
+  var anguleIncrease = 360 / (images.length);
+  images.forEach(function(img){
+    $(".cs-skin-circular .cs-options li:nth-child(" + posChild + ")").css('background-image','url(' + img + ')');
+    //set transformations
+    //calculate position
+    var x = Math.cos(angule * (Math.PI/180)) * ratio;
+    var y = Math.sin(angule * (Math.PI/180)) * ratio;
+    angule = (angule + anguleIncrease) % 360;
+    //set style with positions
+    styles = styles + '.cs-skin-circular.cs-active .cs-options li:nth-child(' + posChild + ') ' +
+    '{ -webkit-transform: translate3d(' + x + 'px, ' + y +'px, 0); ' +
+    'transform: translate3d(' + x + 'px, ' + y + 'px, 0);} ';
+    posChild++;
+  });
+  //apply transformations
+  styles = styles + '</style>';
+  var style = $(styles);
+  $('html > head').append(style);
+
+};
+window.SelectCircular = SelectCircular;
+
 } )( window );
