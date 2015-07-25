@@ -411,7 +411,7 @@ SelectCircular constructor method
 //then call constructor
 //new select circular (images)
 var images = [];
-function SelectCircular(selectId, selectImages, circleRadio, funx){
+function SelectCircular(selectId, selectImages, circleRadio, userFunctionOnChange){
   images = selectImages;
   //add classes
   $('#' + selectId).addClass('cs-select');
@@ -423,7 +423,6 @@ function SelectCircular(selectId, selectImages, circleRadio, funx){
     $('#' + selectId).append($('<option>', { value: i, text: i }));
   }
 
-
   [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
     new SelectFx(el, {
       stickyPlaceholder: false,
@@ -434,7 +433,8 @@ function SelectCircular(selectId, selectImages, circleRadio, funx){
           document.querySelector('span.cs-placeholder').style.backgroundImage = 'url(' + images[val - 1] + ')'; //img/smiley/happy_'+val+'.png)';
         };
         //call the function when an image has been selected
-        eval(funx(val));
+        if(userFunctionOnChange !== undefined && $.isFunction(userFunctionOnChange))
+          eval(userFunctionOnChange(val));
       }
     });
   } );
