@@ -16,14 +16,7 @@
 		<div class="container">
 			<!-- Top Navigation -->
 			<section>
-				<select class="cs-select cs-skin-circular">
-					<option value="" disabled selected>Select an activity</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</select>
+				<select id="selDemo"></select>
 			</section>
 		</div><!-- /container -->
 		<script src="../selectCircular.js"></script>
@@ -36,7 +29,12 @@
 										'img/smiley/happy_3.png',
 										'img/smiley/happy_4.png',
 										'img/smiley/happy_5.png'];
-				SelectCircular(images,100);
+				SelectCircular('selDemo', images,100,
+					 function (val) {
+						//alert(val);
+						console.log('selected ' + val);
+					}
+				);
 
 			})();
 		</script>

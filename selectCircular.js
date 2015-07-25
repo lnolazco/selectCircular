@@ -405,13 +405,25 @@ if ( typeof define === 'function' && define.amd ) {
 	window.SelectFx = SelectFx;
 
 /*
-LNN: constructor
+LNN
+SelectCircular constructor method
 */
 //then call constructor
 //new select circular (images)
 var images = [];
-function SelectCircular(selectImages, circleRadio){
+function SelectCircular(selectId, selectImages, circleRadio, funx){
   images = selectImages;
+  //add classes
+  $('#' + selectId).addClass('cs-select');
+  $('#' + selectId).addClass('cs-skin-circular');
+
+  //create the options
+  $('#' + selectId).append('<option value: "" disabled selected>Select an activity</option>');
+  for (var i = 1; i <= images.length; i++) {
+    $('#' + selectId).append($('<option>', { value: i, text: i }));
+  }
+
+
   [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
     new SelectFx(el, {
       stickyPlaceholder: false,
@@ -421,9 +433,12 @@ function SelectCircular(selectImages, circleRadio){
         img.onload = function() {
           document.querySelector('span.cs-placeholder').style.backgroundImage = 'url(' + images[val - 1] + ')'; //img/smiley/happy_'+val+'.png)';
         };
+        //call the function when an image has been selected
+        eval(funx(val));
       }
     });
   } );
+
   var styles = '<style>';
   var posChild = 1;
 
@@ -449,7 +464,9 @@ function SelectCircular(selectImages, circleRadio){
   var style = $(styles);
   $('html > head').append(style);
 
+
 };
+
 window.SelectCircular = SelectCircular;
 
 } )( window );
