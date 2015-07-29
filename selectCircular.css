@@ -138,6 +138,8 @@ div.cs-skin-circular {
 	border-radius: 50%;
 	-webkit-transition: -webkit-transform 0.2s ease-out;
 	transition: transform 0.2s ease-out;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }
 
 @media screen and (max-width: 30em) {
